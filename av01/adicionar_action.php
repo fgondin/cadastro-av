@@ -9,7 +9,7 @@ $contato = filter_input (INPUT_POST, 'contato');
 $endereco = filter_input (INPUT_POST, 'endereco'); 
 
 if ($nome && $email && $idade && $contato && $endereco) {
-    $sql = $pdo -> prepare ( "INSERT INTO alunos (nome, email, idade, contato, endereco)  VALUES  (:nome, :email, :idade, :contato, :endereco)" );
+    $sql = $pdo -> prepare ( "INSERT INTO tbl_aluno (nome, email, idade, contato, endereco)  VALUES  (:nome, :email, :idade, :contato, :endereco)" );
     $sql -> bindValue (':nome', $nome);
     $sql -> bindParam (':email', $email);
     $sql -> bindValue (':idade', $idade);

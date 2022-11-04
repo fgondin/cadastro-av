@@ -4,7 +4,7 @@
 
     $lista = [];
 
-    $sql = $pdo->query("SELECT * FROM tbl_alunos");
+    $sql = $pdo->query("SELECT * FROM tbl_aluno");
 
     if($sql->rowCount() > 0) {
         $lista = $sql->fetchall(PDO::FETCH_ASSOC);
@@ -73,7 +73,7 @@
                 </tr>
                 <?php foreach($lista as $usuario): ?>
                     <tr>
-                        <td> <?php echo $usuario['id']; ?> </td>
+                        <td> <?php echo $usuario['aluno_id']; ?> </td>
                         <td> <?= $usuario['nome']; ?> </td>
                         <td> <?= $usuario['email']; ?> </td>
                         <td> <?= $usuario['idade']; ?> </td>

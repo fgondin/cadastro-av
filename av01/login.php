@@ -13,7 +13,7 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 if(!empty($dados['SendLogin'])){
 //Impedindo que o usuário deixe alguma das áresas vazias. (errado)
 
-    $sql = $pdo->prepare("SELECT * FROM tbl_alunos WHERE email = :email");
+    $sql = $pdo->prepare("SELECT * FROM tbl_admin WHERE email = :email");
     $sql->bindParam(':email', $dados['email'], PDO::PARAM_STR);
     //Insere especificamente um parametro.
     $sql->execute();
@@ -28,7 +28,7 @@ if(!empty($dados['SendLogin'])){
 
             $_SESSION['id'] = $resultado ['id'];
             $_SESSION['nome'] = $resultado ['nome'];
-            header ('Location: home.php');
+            header ('Location: index.php');
             exit;
 
         }else{

@@ -11,7 +11,7 @@
 
     if ($id && $name && $email && $idade && $contato && $endereco) {
         
-        $sql = $pdo->prepare("UPDATE tbl_alunos SET nome =:nome, email = :email, idade = :idade, contato = :contato, endereco = :endereco WHERE id = :id");
+        $sql = $pdo->prepare("UPDATE tbl_aluno SET nome =:nome, email = :email, idade = :idade, contato = :contato, endereco = :endereco WHERE aluno_id = :aluno_id");
         $sql->bindValue(":nome", $nome);
         $sql->bindParam(":email", $email);
         $sql->bindValue(":idade", $idade);
