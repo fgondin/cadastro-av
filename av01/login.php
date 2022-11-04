@@ -11,17 +11,20 @@ require 'config.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 if(!empty($dados['SendLogin'])){
-//Impedindo que o usuário deixe alguma das áresas vazias.
+//Impedindo que o usuário deixe alguma das áresas vazias. (errado)
 
     $sql = $pdo->prepare("SELECT * FROM tbl_alunos WHERE email = :email");
     $sql->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+    //Insere especificamente um parametro.
     $sql->execute();
 
     if(($sql) && ($sql->rowCount() != 0)){
 
         $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+        //Buscando uma linha de resultados e transformando em uma array.
 
         if(password_verify($dados['password'], $resultado['senha'])){
+        //Verifica se a senha digitada confere com a criptografia.
 
             $_SESSION['id'] = $resultado ['id'];
             $_SESSION['nome'] = $resultado ['nome'];
@@ -30,12 +33,14 @@ if(!empty($dados['SendLogin'])){
 
         }else{
             $_SESSION['msg'] = "<p style='color: #ff0000'>ERRO: Usuário ou senha invalidos!</p>";
+            //Caso algo esteja errado, irá aparecer uma mensagem em vermelho para o usuário.
         }
 
         if(isset($_SESSION['msg'])){
             echo $_SESSION['msg'];
-            unset ($SESSION['msg']);
+            unset ($_SESSION['msg']);
         }
+        //Um código para destruir a mensagem após o término da sessão para não haver conflitos.
 
     }
 

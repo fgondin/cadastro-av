@@ -14,6 +14,7 @@ if ($nome && $email && $senha && $confirmarSenha){
     //O e-mail é resgatado do banco de dados e comparado ao e-mail digitado.
     //NUNCA MAIS FAZ UMA TABELA COM ESSE NOME, ANIMAL!
     $sql->bindValue (":email", $email);
+    //Insere a informação do PHP para o SQL (coluna SQL/variável).
     $sql->execute();
     
     if ($sql->rowCount() === 0){
