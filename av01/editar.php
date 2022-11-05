@@ -1,89 +1,77 @@
-<?php 
+<?php
     require 'config.php';
-    include 'head.php';
+    require 'head.php';
 
-    $lista = [];
+    $info = [];
+    //Preparando um array.
 
-    $sql = $pdo->query("SELECT * FROM tbl_aluno");
+    $id = filter_input(INPUT_GET, 'id');
+    //Filtra o ID, coletando o presente no banco de dados.
 
-    if($sql->rowCount() > 0) {
-        $lista = $sql->fetchall(PDO::FETCH_ASSOC);
+    if($id) {
+        $sql = $pdo->prepare("SELECT * FROM tbl_aluno WHERE id = :id");
+        //Pega a linha do ID selecionado.
+        $sql->bindValue(':id', $id);
+        //Atribui o ID da linha na variável.
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            $info = $sql->fetch(PDO::FETCH_ASSOC);
+            //Cata os valores da variável na array sem que aja cópias.
+
+        } else {
+            header("Location: index.php");
+            exit;
+        }
+    } else {
+        header("Location: index.php");
+        exit;
     }
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <title>Editar Usuário</title>
-</head>
-<body>
-    
-    <h1> Editar usuário </h1>
+<div class="container" style="margin: 2rem">
+    <h1> Editar </h1>
 
-    <form method="post" action="editar_action.php">
+    <form action="editar_action.php" method="post">
 
-        <label for="">
-            Nome: <br/>
-            <input type="text" name="nome">
-            <br>
-        </label> <br/>
+    <input type="hidden" name="id" value="<?=$info['id']; ?>" />
 
-        <label for="">
-            E-mail: <br/>
-            <input type="email" name="email">
-            <br>
-        </label> <br/>
-
-        <label for="">
-            Idade: <br/>
-            <input type="idade" name="idade">
-        </label> <br/>
-
-        <label for="">
-            Contato: <br/>
-            <input type="contato" name="contato">
-        </label> <br/>
-
-        <label for="">
-            Endereço: <br>
-            <input type="endereco" name="endereco">
-        </label>
-
-        <input type="submit" value="Salvar" class="btn btn-primary">
-    </form>
-
-    <div>
-    
-            <table class="table">
-            
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Idade</th>
-                    <th>Contato</th>
-                    <th>Endereço</th>
-    
-                </tr>
-                <?php foreach($lista as $usuario): ?>
-                    <tr>
-                        <td> <?php echo $usuario['aluno_id']; ?> </td>
-                        <td> <?= $usuario['nome']; ?> </td>
-                        <td> <?= $usuario['email']; ?> </td>
-                        <td> <?= $usuario['idade']; ?> </td>
-                        <td> <?= $usuario['contato']; ?> </td>
-                        <td> <?= $usuario['endereco']; ?> </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-    
+        <div>
+            <label for="">
+                Nome: <br/>
+                <input type="text" name="nome" value="<?=$info['nome']; ?>">
+            </label><br/><br/>
         </div>
 
-</body>
-</html>
+        <div>
+            <label for="">
+                E-mail: <br/>
+                <input type="email" name="email" value="<?=$info['email']; ?>">
+            </label><br/><br/>
+        </div>
+
+        <div>
+            <label for="">
+                Idade: <br/>
+                <input type="number" name="idade" value="<?=$info['idade']; ?>">
+            </label><br/><br/>
+        </div>
+
+        <div>
+            <label for="">
+                Contato: <br/>
+                <input type="number" name="contato" value="<?=$info['contato']; ?>">
+            </label><br/><br/>
+        </div>
+
+        <div>
+            <label for="">
+                Endereço: <br/>
+                <input type="text" name="endereco" value="<?=$info['endereco']; ?>">
+            </label><br/><br/>
+        </div>
+
+        <input type="submit" value="Salvar">
+    </form>
+</div>

@@ -5,7 +5,7 @@ ob_start();
 
 if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
     $_SESSION['msg'] = "<p style='color: #ff0000'>Erro: Necessário fazer o login!</p>";
-    header("Location: index.php");        
+    header("Location: index.php");
 }
 
 ?>
@@ -54,20 +54,20 @@ if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
                 </tr>
                 <?php foreach($lista as $usuario): ?>
                     <tr>
-                        <td> <?php echo $usuario['aluno_id']; ?> </td>
+                        <td> <?php echo $usuario['id']; ?> </td>
                         <td> <?= $usuario['nome']; ?> </td>
                         <td> <?= $usuario['email']; ?> </td>
                         <td> <?= $usuario['idade']; ?> </td>
                         <td> <?= $usuario['contato']; ?> </td>
                         <td> <?= $usuario['endereco']; ?> </td>
                         <td>
-                            <a href="editar.php?nome=<?=$usuario['nome']; ?>" 
+                            <a href="editar.php?id=<?=$usuario['id']; ?>" 
                                 class="btn btn-success"
                             >
                                 editar
                             </a>
                             <a 
-                            href="excluir.php?nome=<?=$usuario['nome']; ?>"
+                            href="excluir.php?id=<?=$usuario['id']; ?>"
                             onclick="return confirm('Tem certeza que deseja excluir ?')"
                             class="btn btn-danger"
                             >

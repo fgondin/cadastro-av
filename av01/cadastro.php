@@ -30,7 +30,7 @@ if ($nome && $email && $senha && $confirmarSenha){
             $sql->bindValue (":senha", $senha_hash);
             $sql->bindValue (":email", $email);
             $sql->execute();
-            header ("Location: home.php");
+            header ("Location: login.php");
             //Se todos os "if" forem atendidos, o usuário é levado a página "home.php"
             exit;
         }else{
