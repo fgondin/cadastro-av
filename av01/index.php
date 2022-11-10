@@ -23,14 +23,14 @@ if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
         $lista = $sql->fetchall(PDO::FETCH_ASSOC);
     }
 
-    $id = filter_input(INPUT_GET, 'aluno_id');
+    $id = filter_input(INPUT_GET, 'id');
     $nome = filter_input(INPUT_GET, 'nome');
     $email = filter_input(INPUT_GET, 'email');
     $idade = filter_input(INPUT_GET, 'idade');
     $contato = filter_input(INPUT_GET, 'contato');
     $endereco = filter_input(INPUT_GET, 'endereco');
 
-    $lista = $pdo->query("SELECT * FROM tbl_pesquisa WHERE nome LIKE'%$nome%' and email LIKE'%$email%' and idade LIKE'%$idade%' and contato LIKE'%$contato%' and endereco LIKE'%$endereco%'");
+    $lista = $pdo->query("SELECT * FROM tbl_aluno WHERE id LIKE '%$id%' and nome LIKE'%$nome%' and email LIKE'%$email%' and idade LIKE'%$idade%' and contato LIKE'%$contato%' and endereco LIKE'%$endereco%'");
 
 ?>
 
@@ -38,11 +38,8 @@ if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
 <body>
 
     <div class="container">
-        
-        
-        <div>
-            <a class="btn btn-primary" href="adicionar.php"> Adicionar usuário </a>
-        </div>
+
+        <h2> Pesquisar </h2>
 
         <div class="d-flex">
 
@@ -56,10 +53,6 @@ if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
                 <input class="btn btn-primary" type="submit" value="Buscar">
             </form>
 
-        </div>
-
-        <div>
-            <a href="./logout.php">Sair</a>
         </div>
         
         <div>
@@ -77,14 +70,14 @@ if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
                 </tr>
                 <?php foreach($lista as $usuario): ?>
                     <tr>
-                        <td> <?php echo $usuario['aluno_id']; ?> </td>
+                        <td> <?php echo $usuario['id']; ?> </td>
                         <td> <?= $usuario['nome']; ?> </td>
                         <td> <?= $usuario['email']; ?> </td>
                         <td> <?= $usuario['idade']; ?> </td>
                         <td> <?= $usuario['contato']; ?> </td>
                         <td> <?= $usuario['endereco']; ?> </td>
                         <td>
-                            <a href="editar.php?id=<?=$usuario['aluno_id']; ?>" 
+                            <a href="editar.php?id=<?=$usuario['id']; ?>" 
                                 class="btn btn-success"
                             >
                                 editar
@@ -103,6 +96,14 @@ if((!isset($_SESSION['id'])) && (!isset($_SESSION['nome']))){
                 <?php endforeach; ?>
             </table>
     
+        </div>
+
+        <div>
+            <a class="btn btn-primary" href="adicionar.php"> Adicionar aluno </a>
+        </div>
+
+        <div>
+            <a href="./logout.php">Sair</a>
         </div>
 
     </div>    
